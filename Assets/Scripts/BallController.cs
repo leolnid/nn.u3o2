@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,10 +15,12 @@ public class BallController : MonoBehaviour
     public float MinSize = 0.1f;
 
     public UnityEvent blowEvent;
+    public ParticleSystem ps;
 
     public void Start()
     {
         StartCoroutine(_ManageBaloonSize());
+        ps = GetComponent<ParticleSystem>();
     }
 
     public void StartExpanding()
@@ -45,6 +48,10 @@ public class BallController : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
+        
+        Destroy(transform.GetChild(0).gameObject);
+        ps.Play();
+        yield return new WaitForSeconds(1);
 
         blowEvent.Invoke();
         Destroy(transform.parent.gameObject);

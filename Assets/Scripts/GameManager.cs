@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public float fallSpeed;
+    public Canvas gameOverCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public void BalloonsHasBlown()
     {
         Debug.Log("Game Over");
+        gameOverCanvas.enabled = true;
         fallSpeed += 1;
     }
 
